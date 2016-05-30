@@ -1,0 +1,52 @@
+<html>
+<head>
+<title></title>
+<script language="javascript"> 
+
+function yyy(){
+	SetPorgressBar("开始",0);
+}
+function SetPorgressBar(msg, pos) 
+{ 
+
+ProgressBar.style.width= pos + "%"; 
+WriteText("Msg1",msg + "已完成" + pos + "%"); 
+pos+=1;
+if(pos<101){
+	var fun="SetPorgressBar('',"+pos+")";
+	setTimeout(fun,100);
+}else{
+	SetCompleted("");
+}
+} 
+
+function SetCompleted(msg) 
+{ 
+if(msg=="") 
+   WriteText("Msg1","完成"); 
+   else 
+    WriteText("Msg1",msg);     
+} 
+
+function WriteText(id, str) 
+{ 
+var strTag = '<font face="Verdana, Arial, Helvetica" size="2" color="#ea9b02"><B>' + str + '</B></font>';     
+if (document.all) document.all[id].innerHTML = strTag; 
+} 
+
+</script>
+</head>
+<body>
+<div align="center"
+	style="font-size: 12px; position: absolute; TOP: 184px; LEFT: 250px; overflow: visible">
+<div align="left" id="Msg1"><font face="Verdana, Arial, Helvetica"
+	size="2" color="#ea9b02"><b>正在加载</b></font></div>
+<div align="left" id="ProgressBarSide"
+	style="color: Silver; border-width: 1px; border-style: Solid; width: 300px;">
+<div align="left" id="ProgressBar"
+	style="background-color: #3366FF; height: 21px; width: 0%;"></div>
+</div>
+<input type="button" id="clickStart" onclick="yyy()" value="开始加载"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sinobpc> 
+  <header> 
+    <msg> 
+      <funCode src_old="/sinobpc/header/msg/funCode"></funCode>  
+      <journalFlag src_old="/sinobpc/header/msg/journalFlag"></journalFlag>  
+      <journalNo src_old="/sinobpc/header/msg/journalNo"></journalNo>  
+      <absID src_old="/sinobpc/header/msg/absID"></absID>  
+      <abcID src_old="/sinobpc/header/msg/abcID"></abcID>  
+      <channel src_old="/sinobpc/header/msg/channel"></channel>  
+      <branchNo src_old="/sinobpc/header/msg/branchNo"></branchNo>  
+      <workDate src_old="/sinobpc/header/msg/workDate"></workDate>  
+      <workTime src_old="/sinobpc/header/msg/workTime"></workTime>  
+      <tellerId src_old="/sinobpc/header/msg/tellerId"></tellerId>  
+      <tellerName src_old="/sinobpc/header/msg/tellerName"></tellerName>  
+      <authId src_old="/sinobpc/header/msg/authId"></authId>  
+      <authName src_old="/sinobpc/header/msg/authName"></authName>  
+      <callTyp src_old="/sinobpc/header/msg/callTyp"></callTyp>  
+      <postTyp src_old="/sinobpc/header/msg/postTyp"></postTyp>  
+      <optTyp src_old="/sinobpc/header/msg/optTyp"></optTyp> 
+    </msg>  
+    <status> 
+      <resCode src_old="/sinobpc/header/status/resCode"></resCode>  
+      <resDesc src_old="/sinobpc/header/status/resDesc"></resDesc>  
+      <location src_old="/sinobpc/header/status/location"></location>  
+      <appCd src_old="/sinobpc/header/status/appCd"></appCd> 
+    </status> 
+  </header>  
+  <body> 
+    <boData> 
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[1]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[1]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[2]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[2]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[3]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[3]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[4]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[4]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[5]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[5]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[6]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[6]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[7]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[7]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[8]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[8]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[9]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[9]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[10]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[10]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[11]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[11]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[12]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[12]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[13]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[13]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[14]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[14]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[15]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[15]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[16]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[16]/field-RealityValue"></field-RealityValue> 
+      </field>  
+      <field> 
+        <field-Name src_old="/sinobpc/body/boData/field[17]/field-Name"></field-Name>  
+        <field-RealityValue src_old="/sinobpc/body/boData/field[17]/field-RealityValue"></field-RealityValue> 
+      </field> 
+    </boData>  
+    <nodeopr> 
+      <participant> 
+        <userName src_old="/sinobpc/body/nodeopr/participant/userName"></userName>  
+        <password src_old="/sinobpc/body/nodeopr/participant/password"></password>  
+        <org src_old="/sinobpc/body/nodeopr/participant/org"></org> 
+      </participant> 
+    </nodeopr> 
+  </body> 
+</sinobpc>

@@ -1,0 +1,5 @@
+<form action="sample01.jsp" method="post" ENCTYPE="multipart/form-data">
+选择要上传的图片：
+<input type="file" name="pic">
+<input type="submit" value="上传">
+</form>

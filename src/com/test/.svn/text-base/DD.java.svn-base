@@ -1,0 +1,59 @@
+package test;
+
+
+import java.io.FileOutputStream;
+
+import java.util.List;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
+public class DD
+{
+	public void BuildXML() throws Exception
+	{
+	Element rootElement = new Element("MyInfo");//所有的XML元素都是 Element 的实例。根元素也不例外：）
+	Document myDocument = new Document(rootElement);//以根元素作为参数创建Document对象。一个Document只有一个根，即root元素。
+	rootElement.setAttribute("comment","introduce myself");
+	//创建子无素;JDOM里子元素是作为 content（内容）添加到父元素里面去的。
+	Element intrductionElement = new Element("intrduction");
+	rootElement.addContent("sasdfasdfasdf");
+	rootElement.addContent(intrductionElement);
+	Element nameElement = new Element("name");//创建 name 元素
+	nameElement.addContent("songyanwei");//将songyanwei作为content添加到name元素
+	
+	intrductionElement.addContent(nameElement);//将name元素作为content添加到根元素
+	Element sexElement=new Element("sex");
+	intrductionElement.addContent(sexElement);
+	sexElement.addContent("male");
+	Element contactElement=new Element("contact");
+	intrductionElement.addContent(contactElement);
+	contactElement.addContent ("telephone");
+	contactElement.addContent ("87654321");
+    Format format = Format.getCompactFormat ();
+
+    format.setEncoding("gb2312");           //设置xml文件的字符为gb2312
+
+    format.setIndent("    ");               //设置xml文件的缩进为4个空格
+    XMLOutputter XMLOut = new XMLOutputter(format);//在元素后换行，每一层元素缩排四格 
+    format.toString();
+    System.out.println(format.toString());
+    XMLOut.output(myDocument, new FileOutputStream("c://myinfor.xml"));  
+	}
+	 public static void main(String[] args) throws Exception
+
+	    {
+
+	        DD w = new DD();
+
+	        System.out.println("Now we build an XML document .....");
+
+	        w.BuildXML();
+
+	        System.out.println("finished!");
+
+	    }
+	 }
+
+
+

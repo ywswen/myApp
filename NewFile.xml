@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chart palette='1' caption='Product Comparison' shownames='1'
+	showvalues='0' numberPrefix='$' showSum='1' decimals='0'
+	overlapColumns='0'>
+	<categories>
+		<category label='业务费' />
+		<category label='会议费' />
+		<category label='协作费' />
+		<category label='国际合作与交流费' />
+		<category label='劳务费' />
+		<category label='合作费' />
+		<category label='差旅费' />
+		<category label='其他支出' />
+		<category label='专家咨询费' />
+	</categories>
+	<dataset seriesName='规定金额' showValues='0'>
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+		<set value='0' />
+	</dataset>
+		<dataset seriesName='已报销金额' showValues='0'>
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+			<set value='0' />
+		</dataset>
+</chart>

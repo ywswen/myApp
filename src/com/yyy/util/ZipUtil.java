@@ -1,0 +1,281 @@
+package com.yyy.util;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+
+import org.apache.log4j.Logger;
+
+/**
+ * @类名： ZipUtil
+ * @描述： 压缩解压工具类
+ * @作者： 杨文胜
+ * @生成时间： 2013-6-19 下午03:22:46
+ * @修改人：
+ * @修改时间：
+ */
+public class ZipUtil {
+	private static final Logger _log = Logger.getLogger(ZipUtil.class);
+	private static int BUFFER = 1024;
+	/**
+	 * @属性说明：压缩后生成的zip文件
+	 **/
+	private File zipFile;
+
+	public ZipUtil(String pathName) {
+		zipFile = new File(pathName);
+	}
+	/**
+	 *   @生成时间： 2013-7-16 下午12:01:36
+	 *   @方法说明： 压缩文件
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public static void compressFile(byte[] tumb, String fileName ,ZipOutputStream out) {
+		try {
+			ZipEntry entry = new ZipEntry(fileName);
+			out.putNextEntry(entry);
+			out.write(tumb);
+		} catch (Exception e) {
+			_log.error("缩略图压缩失败！", e);
+			throw new RuntimeException(e);
+		}
+	} 
+	/**
+	 *   @生成时间： 2013-7-16 下午12:01:36
+	 *   @方法说明： 压缩文件
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public static void compressFile(File file, ZipOutputStream out) {
+		if (!file.exists()) {
+			return;
+		}
+		try {
+			BufferedInputStream bis = new BufferedInputStream(
+					new FileInputStream(file));
+			ZipEntry entry = new ZipEntry(file.getName());
+			out.putNextEntry(entry);
+			int count;
+			byte data[] = new byte[BUFFER];
+			while ((count = bis.read(data, 0, BUFFER)) != -1) {
+				out.write(data, 0, count);
+			}
+			bis.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	} 
+
+	/**
+	 *   @生成时间： 2013-6-19 下午03:26:43
+	 *   @方法说明： 压缩方法
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public static byte[] zip(byte[] data) {
+		byte[] b = null;
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ZipOutputStream zip = new ZipOutputStream(bos);
+			ZipEntry entry = new ZipEntry("zip");
+			entry.setSize(data.length);
+			zip.putNextEntry(entry);
+			zip.write(data);
+			zip.closeEntry();
+			zip.close();
+			b = bos.toByteArray();
+			bos.close();
+		} catch (Exception ex) {
+			_log.error("压缩失败", ex);
+		}
+		return b;
+	}
+
+	/**
+	 *   @生成时间： 2013-6-19 下午03:26:57
+	 *   @方法说明： 解压方法
+	 *   @参数：	   byte[] data
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public static byte[] unZip(byte[] data) {
+		byte[] b = null;
+		try {
+			ByteArrayInputStream bis = new ByteArrayInputStream(data);
+			ZipInputStream zip = new ZipInputStream(bis);
+			while (zip.getNextEntry() != null) {
+				byte[] buf = new byte[1024];
+				int num = -1;
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				while ((num = zip.read(buf, 0, buf.length)) != -1) {
+					baos.write(buf, 0, num);
+				}
+				b = baos.toByteArray();
+				baos.flush();
+				baos.close();
+			}
+			zip.close();
+			bis.close();
+		} catch (Exception ex) {
+			_log.error("解压失败", ex);
+		}
+		return b;
+	}
+
+	/**
+	 *   @生成时间： 2013-7-16 下午06:28:26
+	 *   @方法说明： 传入路径压缩
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public void compress(String srcPathName) {
+		File file = new File(srcPathName);
+		if (!file.exists())
+			throw new RuntimeException(srcPathName + "不存在！");
+		try {
+			FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
+			CheckedOutputStream cos = new CheckedOutputStream(fileOutputStream,
+					new CRC32());
+			ZipOutputStream out = new ZipOutputStream(cos);
+			String basedir = "";
+			compress(file, out, basedir);
+			out.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 *   @生成时间： 2013-7-16 下午06:27:17
+	 *   @方法说明： 判断是目录还是文件
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	private void compress(File file, ZipOutputStream out, String basedir) {
+		if (file.isDirectory()) {
+			_log.info("压缩：" + basedir + file.getName());
+			this.compressDirectory(file, out, basedir);
+		} else {
+			_log.info("压缩：" + basedir + file.getName());
+			this.compressFile(file, out, basedir);
+		}
+	}
+
+	/**
+	 *   @生成时间： 2013-7-16 下午06:27:03
+	 *   @方法说明： 压缩一个目录
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	private void compressDirectory(File dir, ZipOutputStream out, String basedir) {
+		if (!dir.exists())
+			return;
+
+		File[] files = dir.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			/* 递归 */
+			compress(files[i], out, basedir + dir.getName() + "/");
+		}
+	}
+
+	/**
+	 *   @生成时间： 2013-7-16 下午06:26:49
+	 *   @方法说明： 压缩文件
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	private void compressFile(File file, ZipOutputStream out, String basedir) {
+		if (!file.exists()) {
+			return;
+		}
+		try {
+			BufferedInputStream bis = new BufferedInputStream(
+					new FileInputStream(file));
+			ZipEntry entry = new ZipEntry(file.getName());
+			out.putNextEntry(entry);
+			int count;
+			byte data[] = new byte[BUFFER];
+			while ((count = bis.read(data, 0, BUFFER)) != -1) {
+				out.write(data, 0, count);
+			}
+			bis.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	/**
+	 * Description：执行文件压缩
+	 * @param zOut 压缩输出流
+	 * @param file 被压缩的文件（文件夹）
+	 * @return
+	 */
+	public static void writeFile(ZipOutputStream zOut,File file) throws IOException{
+		//log.info("开始压缩"+file.getName());
+		FileInputStream in = new FileInputStream(file);  
+		int len;
+		while((len = in.read()) != -1){
+			zOut.write(len);
+		}
+		// log.info("压缩结束"+file.getName());
+		in.close();
+	}
+//	public static void main(String[] args) {
+//		ZipCompressor zc = new  ZipCompressor("E:\\szhzip.zip");
+//		zc.compress("E:\\test");
+//	}
+	public static void compressDirectory(File fileSrc, ZipOutputStream out) throws Exception{
+		if(!fileSrc.exists()){
+			return;
+		}else if(fileSrc.isDirectory()){
+			File[] files = fileSrc.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				/* 递归 */
+				compressDirectory(files[i], out);
+			}
+		}else {
+			ZipUtil.compressFile(fileSrc, out);
+		}
+	}
+	public static void compressDirectory(String fileSrcPath, String destinationPath) throws Exception{
+		ZipOutputStream out = null;
+		FileOutputStream outFile = null;
+		try {
+			outFile = new FileOutputStream(destinationPath);
+			out = new ZipOutputStream(outFile);
+			File fileSrc = new File(fileSrcPath);
+			compressDirectory(fileSrc, out);
+			out.closeEntry();
+			out.close();
+			outFile.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(null != out)
+				out.close();
+			if(null != outFile)
+				outFile.close();
+		}
+	}
+	public static void main(String[] args) throws Exception {
+		ZipUtil.compressDirectory("D:\\temp\\export\\2014071117304535193C7A90", "D:\\temp\\export\\2014071117304535193C7A90.zip");
+		System.out.println("成功");
+	}
+}

@@ -1,0 +1,69 @@
+package com.yyy.dailycode.enjoycoding.csv;
+
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
+import au.com.bytecode.opencsv.CSVReader;
+
+import com.yyy.dailycode.db.dbunit.OracleUnit;
+import com.yyy.util.UUIDFactoryUtil;
+
+/**
+ *   @类名： CsvUtil
+ *   @描述： 测试读取csv文件,以来的jar为opencsv-2.3.jar
+ *   @作者： 杨文胜
+ *   @生成时间： 2014-8-2 上午10:04:22
+ *   @修改人：
+ *   @修改时间：  
+ **/
+public class CsvUtil {
+	private static final Logger log = Logger.getLogger(CsvUtil.class);
+	/**
+	 * @属性说明：文件的磁盘路径
+	 **/
+	private static final String ADDRESS_FILE = "D:\\csvsource\\test.csv";
+	/**
+	 *   @生成时间： 2014-8-2 上午10:05:39
+	 *   @方法说明： 测试读取csv文件
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	@Test
+	public void testReadCsvFile(){
+		CSVReader reader;
+		try {
+			long startTime = System.currentTimeMillis();
+			InputStreamReader isr = new InputStreamReader(new FileInputStream(ADDRESS_FILE),"gbk");
+			reader = new CSVReader(isr);
+//			OracleUnit.getConnection();
+			String [] nextLine;
+			String sql = "insert into yyy_csv values('";
+			while ((nextLine = reader.readNext()) != null) {
+				StringBuffer insertStringBuffer = new StringBuffer(sql);
+				insertStringBuffer.append(UUIDFactoryUtil.getUUID()).append("','");
+				insertStringBuffer.append(nextLine[0]).append("','");
+				insertStringBuffer.append(nextLine[1]).append("','");
+				insertStringBuffer.append(nextLine[2]).append("')");
+//				log.debug(insertStringBuffer.toString());
+//				OracleUnit.execute(insertStringBuffer.toString());
+			}
+			long endTime = System.currentTimeMillis();
+			log.debug(endTime - startTime);
+//			OracleUnit.getConnection().commit();
+		} catch (Exception e) {
+			log.error("插入失败！", e);
+		} finally {
+//			try {
+//				OracleUnit.getConnection().rollback();
+//			} catch (SQLException e) {
+//				log.error("回滚失败！", e);
+//			}
+//			OracleUnit.closeConnection();
+		}
+	}
+}
