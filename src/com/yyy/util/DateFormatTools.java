@@ -24,7 +24,20 @@ public class DateFormatTools {
 	private static String RULE_TIME_DAUFLAT = "HH:mm:ss";
 	private static String NO_SPLIT_SIGN_TIME = "HHmmss";
 	private static String DATE_AND_TIME_STR = "yyyy-MM-dd HH:mm:ss";
+	private static String DATE_AND_TIME_STR_NO_SPLIT = "yyyyMMddHHmmss";
 	
+	/**
+	 *   @生成时间： 2011-12-1 下午06:26:32
+	 *   @方法说明： 获取yyyyMMddHHmmss格式字符串
+	 *   @参数： 
+	 *   @返回值： 
+	 *   @异常：
+	 *
+	 */
+	public static String getDateTimeStr(){
+		DateFormat sf = new SimpleDateFormat(DATE_AND_TIME_STR_NO_SPLIT);
+		return sf.format(new Date());
+	}
 	/**
 	 *   @生成时间： 2011-12-1 下午06:26:32
 	 *   @方法说明： 字符串转化为日期对象
@@ -47,7 +60,7 @@ public class DateFormatTools {
 	 *   @返回值： 
 	 *   @异常：
 	 **/
-	public static String getDateTimeStr(){
+	public static String getDateTimeStrNoSplit(){
 		DateFormat sf = new SimpleDateFormat(NO_SPLIT_SIGN_DATE_TIME);
 		return sf.format(new Date());
 	}

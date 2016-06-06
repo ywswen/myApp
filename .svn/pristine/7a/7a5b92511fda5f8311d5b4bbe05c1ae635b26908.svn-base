@@ -14,10 +14,12 @@ import java.util.Date;
  *   @修改时间： 
  *   @描述： 与日期相关的的函数
  **/
-public class DateFomateTools {
+public class DateFormatTools {
 	// 日期格式
 	public static String RULE_DATE_DAUFLAT = "yyyy-MM-dd";
+	public static String FIRST_DAY_MONTH_DAUFLAT = "yyyy-MM-01";
 	private static String NO_SPLIT_SIGN_DATE = "yyyyMMdd";
+	private static String NO_SPLIT_SIGN_DATE_TIME = "yyyyMMddHHmmssSSS";
 	private static String NO_SPLIT_SIGN_MONTH = "yyyyMM";
 	private static String RULE_TIME_DAUFLAT = "HH:mm:ss";
 	private static String NO_SPLIT_SIGN_TIME = "HHmmss";
@@ -51,6 +53,17 @@ public class DateFomateTools {
 		return cal;
 	}
 	
+	/**
+	 *   @生成时间： 2014-7-29 上午11:43:59
+	 *   @方法说明： 将当前日期转化为时间，精确到毫秒
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public static String getDateTimeStrNoSplit(){
+		DateFormat sf = new SimpleDateFormat(NO_SPLIT_SIGN_DATE_TIME);
+		return sf.format(new Date());
+	}
 	/**
 	 *   @生成时间： 2011-12-1 下午06:26:59
 	 *   @方法说明： 将当前日期转化为
@@ -174,5 +187,49 @@ public class DateFomateTools {
 		} catch (ParseException e) {
 			return null;
 		}
+	}
+	/**
+	 *   @生成时间： 2014-5-9 下午04:24:07
+	 *   @方法说明： 获取当前时间的每月1日
+	 *   @参数：   
+	 *   @返回值：   字符串：yyyy年MM月dd日
+	 *   @异常：
+	 **/
+	public static String getFirstDayOfCurrentMonthStr(){
+		SimpleDateFormat sf = new SimpleDateFormat(FIRST_DAY_MONTH_DAUFLAT);
+		return sf.format(new Date());
+	}
+	/**
+	 *   @生成时间： 2014-9-12 下午05:20:00
+	 *   @方法说明： 根据传入的毫秒获取XX年XX天XX小时XX分钟XX秒XX毫秒格式的字符串
+	 *   @参数：
+	 *   @返回值： 
+	 *   @异常：
+	 **/
+	public static String getStrByTimeMillis(long timeMillis){
+		long year = timeMillis / (1000 * 60 * 60 * 24 * 365);
+		long day = timeMillis % (1000 * 60 * 60 * 24 * 365);
+		day = day / (1000 * 60 * 60 * 24);
+		long hour = timeMillis % (1000 * 60 * 60 * 24);
+		hour = hour / (1000 * 60 * 60);
+		long minute = timeMillis % (1000 * 60 * 60);
+		minute = minute / (1000 * 60);
+		long second = timeMillis % (1000 * 60);
+		second = second / (1000);
+		long millis = timeMillis % 1000;
+		StringBuffer sb = new StringBuffer();
+		if (year > 0)
+			sb.append(year).append("年");
+		if (day > 0)
+			sb.append(day).append("天");
+		if (hour > 0)
+			sb.append(hour).append("小时");
+		if (minute > 0)
+			sb.append(minute).append("分钟");
+		if (second > 0)
+			sb.append(second).append("秒");
+		if (millis > 0)
+			sb.append(millis).append("毫秒");
+		return sb.toString();
 	}
 }

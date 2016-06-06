@@ -22430,3 +22430,5 @@ java.sql.SQLException: Can not issue SELECT via executeUpdate() or executeLargeU
 2016-06-06 10:59:23,154-[main][DEBUG]-[content]<< "</html>"
 2016-06-06 10:59:23,154-[main][DEBUG]-[HttpMethodBase]Should close connection in response to directive: close
 2016-06-06 10:59:23,154-[main][DEBUG]-[HttpConnection]Releasing connection back to connection manager.
+2016-06-06 17:08:05,605-[main][INFO]-[IDCard]身份证不正确！
+2016-06-06 17:08:05,638-[main][INFO]-[IDCard]男
