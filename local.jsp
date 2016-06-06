@@ -197,7 +197,7 @@
 			
 			function initAddBusiType(){
 				$('#addbusitype').window({
-					title : '业务类型增加1',
+					title : '业务类型增加',
 					width : 340,
 					modal : true,
 					shadow : true,
