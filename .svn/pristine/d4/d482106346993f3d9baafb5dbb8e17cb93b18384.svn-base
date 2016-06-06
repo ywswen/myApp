@@ -1,0 +1,115 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- oracle database -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass"><value>oracle.jdbc.driver.OracleDriver</value></property>
+		<!-- 
+		<property name="jdbcUrl"><value>jdbc:oracle:thin:@172.168.1.218:1523:changsha</value></property>
+		-->
+		<property name="jdbcUrl"><value>jdbc:oracle:thin:@127.0.0.1:1521:orcl</value></property>
+		<property name="user"><value>orcl</value></property>
+		<property name="password"><value>orcl</value></property>
+		<!-- 连接池中保留的最小连接数 -->
+		<property name="minPoolSize"><value>2</value></property>
+		<!-- 连接池中保留的最大连接数 -->
+		<property name="maxPoolSize"><value>10</value></property>
+		<!-- 最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+		<property name="maxIdleTime"><value>1800</value></property>
+		<!-- 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数 -->
+		<property name="acquireIncrement"><value>5</value></property>
+		<!-- 如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭，maxStatementsPerConnection默认为0 -->
+		<property name="maxStatements"><value>0</value></property>
+		<!-- 初始连接池大小 -->
+		<property name="initialPoolSize"><value>2</value></property>
+		<!-- 每60秒检查所有连接池中的空闲连接。Default: 0 -->
+		<property name="idleConnectionTestPeriod"><value>0</value></property>
+		<!-- 定义在从数据库获取新连接失败后重复尝试的次数 -->
+		<property name="acquireRetryAttempts"><value>3</value></property>
+		<!-- 获取连接失败后该数据源将申明已断开并永久关闭 -->
+		<property name="breakAfterAcquireFailure"><value>true</value></property>
+		<!-- 方法来提升连接测试的性能 -->
+		<property name="testConnectionOnCheckout"><value>false</value></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- 自动加载指定包下的配置文件 -->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath*:resources/hibernate</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle10gDialect
+				</prop>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>-->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.connection.release_mode">after_statement</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- 事物控制bean -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="txProxyTemplate" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="proxyTargetClass">
+			<value>true</value>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="do*">
+					PROPAGATION_REQUIRED,-SinoDataException
+				</prop>
+				<prop key="save*">
+					PROPAGATION_REQUIRED,-SinoDataException
+				</prop>
+				<prop key="insert*">
+					PROPAGATION_REQUIRED,-SinoDataException
+				</prop>
+				<prop key="update*">
+					PROPAGATION_REQUIRED,-SinoDataException
+				</prop>
+				<prop key="delete*">
+					PROPAGATION_REQUIRED,-SinoDataException
+				</prop>
+				<prop key="*">
+					PROPAGATION_REQUIRED,-SinoDataException
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+</beans>

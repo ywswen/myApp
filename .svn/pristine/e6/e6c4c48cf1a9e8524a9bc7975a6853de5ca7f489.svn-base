@@ -1,0 +1,23 @@
+#Oracle \u914d\u7f6e
+oracle_url=jdbc:oracle:thin:@127.0.0.1:1521:orcl
+oracle_user=yyy
+oracle_pwd=password
+#Sqlserver \u914d\u7f6e
+sqlserver_url=jdbc:sqlserver://10.1.1.61:1433;databaseName=Amadeus5
+sqlserver_user=sa
+sqlserver_pwd=ddsdds
+#mysql \u914d\u7f6e
+mysql_url=jdbc:mysql://127.0.0.1:3306/drools?useUnicode=true&characterEncoding=UTF-8
+mysql_user=kie
+mysql_pwd=aaaaaa
+#pretime=
+#\u5b66\u672f\u4fe1\u606f\u5e73\u53f0 \u914d\u7f6e
+xueshu_url=jdbc:sqlserver://10.50.2.48:1433;databaseName=neusipo_aip
+xueshu_user=hrms
+xueshu_pwd=hrms
+#\u95e8\u7981acess\u6570\u636e\u5e93 \u914d\u7f6e
+access_url=jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=C:\\Program Files\\ZKTime5.0\\ATT2000.MDB
+access_user=hrms
+access_pwd=hrms
+#\u80a1\u7968\u6570\u636e\u5e93\u914d\u7f6e
+stock_days=10

@@ -1,0 +1,7 @@
+<chart palette='2' caption='未按时风险评定统计' baseFontSize='12' rotateNames='3' xAxisName='风险等级' 
+yAxisName='' showValues='0' decimals='0' formatNumberScale='0' useRoundEdges='1' rotateYAxisName='0'>
+<set label='个人极端' value='35' />
+<set label='高风险' value='57' />
+<set label='中风险' value='75' />
+<set label='低风险' value='152' />
+</chart>
