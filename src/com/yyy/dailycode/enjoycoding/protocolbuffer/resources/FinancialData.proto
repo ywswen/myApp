@@ -1,0 +1,14 @@
+syntax = "proto3";
+option java_package = "com.yyy.dailycode.enjoycoding.protocolbuffer.vo";
+option java_outer_classname = "FinancialDataModel";
+//财务信息
+message FinancialData {
+	//营业收入
+	string revenue = 1;
+	//净利润
+	string netprofit = 2;
+	//营业收入增长率
+	string revenuerose = 3;
+	//净利润增长率
+	string netprofitrose = 4;
+}

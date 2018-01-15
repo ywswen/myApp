@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "FinancialData.proto";//引入FinancialData.proto文件
+option java_package = "com.yyy.dailycode.enjoycoding.protocolbuffer.vo";//将生产的类放到此文件加下
+option java_outer_classname = "StockItemModel";//定义的Java Bean对象名称，不加的话默认class名称为StockItemOuterClass
+//股票信息
+message StockItem {
+	//股票id
+	string stock_id = 1;
+	//股票编码
+	string stock_code = 2;
+	//股票名称
+	string stock_name = 3;
+	//爬取股票数据的url
+	string stock_code_url = 4;
+	//股票当前财报的季度数据名称，例如“2017年三季报”
+	string title = 5;
+	//嵌套的message，对应内部类，每天股票信息
+	message StockData{
+		//股票编码
+		string stock_code = 1;
+		//开盘价
+		string open = 2;
+		//收盘价
+		string close = 3;
+		//最低价
+		string low = 4;
+		//最高价
+		string high = 5;
+		//动态市盈率
+		string pe = 6;
+		//日期
+		string datestr = 7;
+	}
+	//财务数据
+	FinancialData financialData = 6;
+	StockData stockData = 7;
+}
+
+
