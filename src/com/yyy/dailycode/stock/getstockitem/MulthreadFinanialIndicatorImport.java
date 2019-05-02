@@ -93,7 +93,7 @@ public class MulthreadFinanialIndicatorImport{
                 title = si.getTitle();
                 initURLStr = GetStockFinanialIndicator.initURLStr(stockCode);
                 GetStockFinanialIndicator.updateStockFinacailIndicator(initURLStr, stockCode, title, 1);;
-                System.out.println();
+//                System.out.println();
             }
             //返回处理结果
             return retList;

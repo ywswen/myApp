@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.yyy.dailycode.db.dbunit.OracleUnit;
@@ -34,7 +35,7 @@ public class GetStockFinanialIndicator {
 	/**
 	 * @属性说明：url编码
 	 **/
-	private static final String URL_CODE = "gbk";
+	private static final String URL_CODE = "utf-8";
 	/**
 	 * @属性说明：匹配到的内容
 	 **/
@@ -51,17 +52,22 @@ public class GetStockFinanialIndicator {
 	 **/
 	private static final String REG_PATTERN1 = "l'>(.*?)</td>";
 	/**
-	 * @属性说明：正则表达式匹配寻找每股收益/每股净资产/营业收入/同比增长/净利润/同比增长/    <td>0.27元</td>
+	 * @属性说明：正则表达式匹配寻找每股收益/每股净资产/营业收入/同比增长/净利润/同比增长/    <td>0.27元</td>以及<td class="comRed">	10.32%        </td>
 	 * 
 	 **/
-	private static final String REG_PATTERN2 = "<td>(.*?)</td>";
+	private static final String REG_PATTERN2 = ">(.*?)</td>";
+	
+//	/**
+//	 * @属性说明：正则表达式匹配寻找/同比增长/同比增长/    <td class="comRed">	10.32%        </td>
+//	 **/
+//	private static final String REG_PATTERN3 = ">(.*?)</td>";
 	
 	public static void main(String[] args) {
 		try {
-			String stockCode = "600181";
+			String stockCode = "600959";
 			String title = "";
 			String url = initURLStr(stockCode);
-//			System.out.println(url);
+			System.out.println(url);
 			updateStockFinacailIndicator(url, stockCode, title, 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -164,10 +170,10 @@ public class GetStockFinanialIndicator {
 						}
 						//同比增长
 						br.readLine();
-						line = br.readLine();
+						line = br.readLine()+br.readLine();
 						m2 = p2.matcher(line);
 						while(m2.find()){
-							revenuerose = m2.group(1);
+							revenuerose = StringUtils.trim(m2.group(1)).replace("	", "");
 						}
 						//净利润
 						br.readLine();br.readLine();br.readLine();
@@ -178,13 +184,13 @@ public class GetStockFinanialIndicator {
 						}
 						//同比增长
 						br.readLine();
-						line = br.readLine();
+						line = br.readLine()+br.readLine();
 						m2 = p2.matcher(line);
 						while(m2.find()){
-							netprofitrose = m2.group(1);
+							netprofitrose = m2.group(1).replace("	", "");
 						}
-						if(titleLast != null && (!titleLast.equals(title))){
-							ps.setString(1, pe);
+//						if(titleLast != null && (!titleLast.equals(title))){
+							ps.setString(1, pe.trim());
 							ps.setString(2, pb);
 							ps.setString(3, revenue);
 							ps.setString(4, netprofit);
@@ -197,7 +203,7 @@ public class GetStockFinanialIndicator {
 							ps.setString(11, stockCode);
 							ps.executeUpdate();
 							conn.commit();
-						}
+//						}
 						break;
 					}
 					count++;

@@ -54,7 +54,7 @@ public class GetStockHisDataFromSohu {
 		String stockCode,initURLStr;
 //		for(StockItems si : listStockItems){
 //			stockCode = si.getStock_code_url();
-			stockCode = "300463";
+			stockCode = "603519";
 //			System.out.println(stockCode);
 			initURLStr = initURLStr(stockCode,CYCLETYPE);
 			loadDataToDb(initURLStr, stockCode, 0);
@@ -74,7 +74,7 @@ public class GetStockHisDataFromSohu {
 	 * @异常：
 	 **/
 	public static String initURLStr(String stockCode, String cycleType) {
-		String startDay = "20180105";
+		String startDay = "20170105";
 		String endDay = DateFormatTools.getCurrentDateStr();
 		StringBuffer url = new StringBuffer("http://q.stock.sohu.com/hisHq");
 		url.append("?code=cn_").append(stockCode);
